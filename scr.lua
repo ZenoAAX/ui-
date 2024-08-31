@@ -905,7 +905,7 @@ function Library:create(options)
 
 	rawset(mt, "creditsContainer", creditsTab.container)
 
-	creditsTab:credit{Name = "Xzim", Description = "Owner/Developer", Discord = "zxxzeno", V3rmillion = "contract on discord"}
+	creditsTab:credit{Name = "Xzim", Description = "Owner/Developer", Discord = "zxxzeno", V3rmillion = "Xzim"}
 	--creditsTab:credit{Name = "Deity", Description = "UI Library Developer", Discord = "Deity#0228", V3rmillion = "0xDEITY"}
 	--creditsTab:credit{Name = "Repository", Description = "UI Library Repository", Github="https://github.com/deeeity/mercury-lib/blob/master/src.lua"}
 
