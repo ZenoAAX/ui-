@@ -3,8 +3,7 @@
 
 edited: 1/26
 developers:
-v3rm xzim	        discord zxxzeno
-v3rm xzim		discord zxxzeno
+Xzim
 
 ]]
 
@@ -407,22 +406,22 @@ function Library:create(options)
 	}
 
 	if readfile and writefile and isfile then
-		if not isfile("MercurySettings.json") then
-			writefile("MercurySettings.json", HTTPService:JSONEncode(settings))
+		if not isfile("Darksync.devSettings.json") then
+			writefile("Darksync.devSettings.json", HTTPService:JSONEncode(settings))
 		end
-		settings = HTTPService:JSONDecode(readfile("MercurySettings.json"))
+		settings = HTTPService:JSONDecode(readfile("Darksync.devSettings.json"))
 		Library.CurrentTheme = Library.Themes[settings.Theme]
 		updateSettings = function(property, value)
 			settings[property] = value
-			writefile("MercurySettings.json", HTTPService:JSONEncode(settings))
+			writefile("Darksync.devSettings.json", HTTPService:JSONEncode(settings))
 		end
 	end
 
 	options = self:set_defaults({
-		Name = "Mercury",
+		Name = "Darksync.dev",
 		Size = UDim2.fromOffset(600, 400),
 		Theme = self.Themes[settings.Theme],
-		Link = "https://github.com/deeeity/mercury-lib"
+		Link = "https://github.com/Xzim/Darksync.dev"
 	}, options)
 
 	if getgenv and getgenv().MercuryUI then
@@ -825,6 +824,7 @@ function Library:create(options)
 		Position = UDim2.new(1, -44, 1, -10),
 		AnchorPoint = Vector2.new(1, 1),
 		Image = "http://www.roblox.com/asset/?id=8577523456"
+	}):tooltip("credits")
 
 	local quickAccess = homePage:object("Frame", {
 		BackgroundTransparency = 1,
@@ -897,12 +897,18 @@ function Library:create(options)
 		end,
 	}
 
+	local creditsTab = Library.tab(mt, {
 		Name = "Credits",
+		Internal = creditsTabIcon,
 		Icon = "http://www.roblox.com/asset/?id=8577523456"
 	})
 
+	rawset(mt, "creditsContainer", creditsTab.container)
 
-
+	creditsTab:credit{Name = "Abstract", Description = "UI Library Developer", Discord = "Abstract#8007", V3rmillion = "AbstractPoo"}
+	--[[creditsTab:credit{Name = "Deity", Description = "UI Library Developer", Discord = "Deity#0228", V3rmillion = "0xDEITY"}
+	creditsTab:credit{Name = "Repository", Description = "UI Library Repository", Github="https://github.com/deeeity/mercury-lib/blob/master/src.lua"}
+]]
 	return mt
 end
 
@@ -2715,16 +2721,19 @@ function Library:color_picker(options)
 	self:_resize_tab()
 end
 
+function Library:credit(options)
 	options = self:set_defaults({
 		Name = "Creditor",
 		Description = nil
 	}, options)
 	options.V3rmillion = options.V3rmillion or options.V3rm
 
+	local creditContainer = (self.creditsContainer or self.container):object("Frame", {
 		Theme = {BackgroundColor3 = "Secondary"},
 		Size = UDim2.new(1, -20, 0, 52)
 	}):round(7)
 
+	local name = creditContainer:object("TextLabel", {
 		BackgroundTransparency = 1,
 		Position = UDim2.fromOffset(10, (options.Description and 5) or 0),
 		Size = (options.Description and UDim2.new(0.5, -10, 0, 22)) or UDim2.new(0.5, -10, 1, 0),
@@ -2735,6 +2744,7 @@ end
 	})
 
 	if options.Description then
+		local description = creditContainer:object("TextLabel", {
 			BackgroundTransparency = 1,
 			Position = UDim2.fromOffset(10, 27),
 			Size = UDim2.new(0.5, -10, 0, 20),
@@ -2750,6 +2760,7 @@ end
 	if setclipboard then
 	
 		if options.Github then
+			local githubContainer = creditContainer:object("TextButton", {
 				AnchorPoint = Vector2.new(1, 1),
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.new(1, -8, 1, -8),
@@ -2768,6 +2779,7 @@ end
 		end
 	
 		if options.Discord then
+			local discordContainer = creditContainer:object("TextButton", {
 				AnchorPoint = Vector2.new(1, 1),
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.new(1, -8, 1, -8),
@@ -2825,6 +2837,7 @@ end
 		end
 
 		if options.V3rmillion then
+			local v3rmillionContainer = creditContainer:object("TextButton", {
 				AnchorPoint = Vector2.new(1, 1),
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.new(1, -40, 1, -8),
@@ -2845,6 +2858,8 @@ end
 
 
 	self._resize_tab({
+		container = self.creditsContainer or self.container,
+		layout = (self.creditsContainer and self.creditsContainer.AbsoluteObject.UIListLayout) or self.layout
 	})
 end
 
