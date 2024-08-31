@@ -2756,24 +2756,7 @@ function Library:credit(options)
 
 	if setclipboard then
 	
-		if options.Github then
-			local githubContainer = creditContainer:object("TextButton", {
-				AnchorPoint = Vector2.new(1, 1),
-				Size = UDim2.fromOffset(24, 24),
-				Position = UDim2.new(1, -8, 1, -8),
-				Theme = {BackgroundColor3 = {"Main", 10}}
-			}):round(5):tooltip("copy github")
-			local github = githubContainer:object("ImageLabel", {
-				Image = "http://www.roblox.com/asset/?id=11965755499",
-				Size = UDim2.new(1, -4, 1, -4),
-				Centered = true,
-				BackgroundTransparency = 1
-			}):round(100)
-
-			githubContainer.MouseButton1Click:connect(function()
-				setclipboard(options.Github)
-			end)
-		end
+		
 	
 		if options.Discord then
 			local discordContainer = creditContainer:object("TextButton", {
