@@ -825,7 +825,6 @@ function Library:create(options)
 		Position = UDim2.new(1, -44, 1, -10),
 		AnchorPoint = Vector2.new(1, 1),
 		Image = "http://www.roblox.com/asset/?id=8577523456"
-	}):tooltip("credits")
 
 	local quickAccess = homePage:object("Frame", {
 		BackgroundTransparency = 1,
@@ -898,17 +897,11 @@ function Library:create(options)
 		end,
 	}
 
-	local creditsTab = Library.tab(mt, {
 		Name = "Credits",
-		Internal = creditsTabIcon,
 		Icon = "http://www.roblox.com/asset/?id=8577523456"
 	})
 
-	rawset(mt, "creditsContainer", creditsTab.container)
 
-	creditsTab:credit{Name = "Xzim", Description = "UI Library Developer", Discord = "zxxzeno", V3rmillion = "Xzim"}
-	creditsTab:credit{Name = "Xzim", Description = "UI Library Developer", Discord = "zxxzeno", V3rmillion = "Xzim"}
-	creditsTab:credit{Name = "Repository", Description = "UI Library Repository", Github="wompwomp"}
 
 	return mt
 end
@@ -2722,19 +2715,16 @@ function Library:color_picker(options)
 	self:_resize_tab()
 end
 
-function Library:credit(options)
 	options = self:set_defaults({
 		Name = "Creditor",
 		Description = nil
 	}, options)
 	options.V3rmillion = options.V3rmillion or options.V3rm
 
-	local creditContainer = (self.creditsContainer or self.container):object("Frame", {
 		Theme = {BackgroundColor3 = "Secondary"},
 		Size = UDim2.new(1, -20, 0, 52)
 	}):round(7)
 
-	local name = creditContainer:object("TextLabel", {
 		BackgroundTransparency = 1,
 		Position = UDim2.fromOffset(10, (options.Description and 5) or 0),
 		Size = (options.Description and UDim2.new(0.5, -10, 0, 22)) or UDim2.new(0.5, -10, 1, 0),
@@ -2745,7 +2735,6 @@ function Library:credit(options)
 	})
 
 	if options.Description then
-		local description = creditContainer:object("TextLabel", {
 			BackgroundTransparency = 1,
 			Position = UDim2.fromOffset(10, 27),
 			Size = UDim2.new(0.5, -10, 0, 20),
@@ -2761,7 +2750,6 @@ function Library:credit(options)
 	if setclipboard then
 	
 		if options.Github then
-			local githubContainer = creditContainer:object("TextButton", {
 				AnchorPoint = Vector2.new(1, 1),
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.new(1, -8, 1, -8),
@@ -2780,7 +2768,6 @@ function Library:credit(options)
 		end
 	
 		if options.Discord then
-			local discordContainer = creditContainer:object("TextButton", {
 				AnchorPoint = Vector2.new(1, 1),
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.new(1, -8, 1, -8),
@@ -2838,7 +2825,6 @@ function Library:credit(options)
 		end
 
 		if options.V3rmillion then
-			local v3rmillionContainer = creditContainer:object("TextButton", {
 				AnchorPoint = Vector2.new(1, 1),
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.new(1, -40, 1, -8),
@@ -2859,8 +2845,6 @@ function Library:credit(options)
 
 
 	self._resize_tab({
-		container = self.creditsContainer or self.container,
-		layout = (self.creditsContainer and self.creditsContainer.AbsoluteObject.UIListLayout) or self.layout
 	})
 end
 
