@@ -3,7 +3,9 @@
 
 edited: 1/26
 developers:
-Xzime
+v3rm xzim	        discord zxxzeno
+v3rm xzim		discord zxxzeno
+
 ]]
 
 local TweenService = game:GetService("TweenService")
@@ -405,22 +407,22 @@ function Library:create(options)
 	}
 
 	if readfile and writefile and isfile then
-		if not isfile("Darksync.devSettings.json") then
-			writefile("Darksync.devSettings.json", HTTPService:JSONEncode(settings))
+		if not isfile("MercurySettings.json") then
+			writefile("MercurySettings.json", HTTPService:JSONEncode(settings))
 		end
-		settings = HTTPService:JSONDecode(readfile("Darksync.devSettings.json"))
+		settings = HTTPService:JSONDecode(readfile("MercurySettings.json"))
 		Library.CurrentTheme = Library.Themes[settings.Theme]
 		updateSettings = function(property, value)
 			settings[property] = value
-			writefile("Darksync.devSettings.json", HTTPService:JSONEncode(settings))
+			writefile("MercurySettings.json", HTTPService:JSONEncode(settings))
 		end
 	end
 
 	options = self:set_defaults({
-		Name = "Darksync.dev",
+		Name = "Mercury",
 		Size = UDim2.fromOffset(600, 400),
 		Theme = self.Themes[settings.Theme],
-		Link = "https://github.com/Xzime/Darksync.dev"
+		Link = "https://github.com/deeeity/mercury-lib"
 	}, options)
 
 	if getgenv and getgenv().MercuryUI then
@@ -643,7 +645,7 @@ function Library:create(options)
 		Position = UDim2.new(0, 5, 1, -6),
 		Size = UDim2.new(0.2, 0, 0, 10),
 		Font = Enum.Font.SourceSans,
-		Text = "Status | Undetected",
+		Text = "Status | Idle",
 		Theme = {TextColor3 = "Tertiary"},
 		TextSize = 14,
 		TextXAlignment = Enum.TextXAlignment.Left
@@ -904,7 +906,9 @@ function Library:create(options)
 
 	rawset(mt, "creditsContainer", creditsTab.container)
 
-	creditsTab:credit{Name = "Xzim", Description = "Developer/Owner", Discord = "zxxzeno"}
+	creditsTab:credit{Name = "Xzim", Description = "UI Library Developer", Discord = "zxxzeno", V3rmillion = "Xzim"}
+	creditsTab:credit{Name = "Xzim", Description = "UI Library Developer", Discord = "zxxzeno", V3rmillion = "Xzim"}
+	creditsTab:credit{Name = "Repository", Description = "UI Library Repository", Github="wompwomp"}
 
 	return mt
 end
@@ -2756,7 +2760,24 @@ function Library:credit(options)
 
 	if setclipboard then
 	
-		
+		if options.Github then
+			local githubContainer = creditContainer:object("TextButton", {
+				AnchorPoint = Vector2.new(1, 1),
+				Size = UDim2.fromOffset(24, 24),
+				Position = UDim2.new(1, -8, 1, -8),
+				Theme = {BackgroundColor3 = {"Main", 10}}
+			}):round(5):tooltip("copy github")
+			local github = githubContainer:object("ImageLabel", {
+				Image = "http://www.roblox.com/asset/?id=11965755499",
+				Size = UDim2.new(1, -4, 1, -4),
+				Centered = true,
+				BackgroundTransparency = 1
+			}):round(100)
+
+			githubContainer.MouseButton1Click:connect(function()
+				setclipboard(options.Github)
+			end)
+		end
 	
 		if options.Discord then
 			local discordContainer = creditContainer:object("TextButton", {
